@@ -19,25 +19,29 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @ToString
 @SuperBuilder
-@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
+@EqualsAndHashCode(callSuper = true, exclude = {"detalles"})
 
 public class FacturaVenta extends AuditoriaApp {
 
 
     //cliente, cond iva y moneda @ManyToOne
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "condicion_iva_id", nullable = false)
     private CondicionIva condicionIva;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tipo_mondeda_id", nullable = false)
     private TipoMoneda tipoMoneda;
     @EqualsAndHashCode.Include
     private Long numero;
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaEmision;
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "punto_venta_id")
     private PuntoVenta puntoVenta;
     private double importeCobrado;
     private double importeSaldo;
@@ -54,7 +58,7 @@ public class FacturaVenta extends AuditoriaApp {
     private Date fechaAnulacion;
     private String observaciones;
 
-    @OneToMany (mappedBy = "factura", cascade = CascadeType.ALL)
+    @OneToMany (mappedBy = "factura", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @Builder.Default
     private List<FacturaVentaDetalle> detalles = new ArrayList<>();
