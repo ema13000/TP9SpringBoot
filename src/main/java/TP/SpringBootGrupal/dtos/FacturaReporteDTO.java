@@ -17,5 +17,7 @@ public class FacturaReporteDTO {
     private String condicionIva;
     private String puntoVentaDescripcion;
     private double importeTotal;
+    private long cantidadItems;
+
 }
 
