@@ -19,7 +19,7 @@ public class SpringBootGrupalApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootGrupalApplication.class, args);
 
-				EntityManagerFactory emf = Persistence.createEntityManagerFactory("FacturacionPU");
+				EntityManagerFactory emf = Persistence.createEntityManagerFactory("tpJPA");
 				EntityManager em = emf.createEntityManager();
 
 				Usuario usuario = Usuario.builder()
