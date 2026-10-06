@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 @AllArgsConstructor
 @SuperBuilder
 @ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = true)
 
 
 public class PuntoVenta extends AuditoriaApp {
