@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @SuperBuilder
-@EqualsAndHashCode(callSuper = true, exclude = {"detalles"})
+@EqualsAndHashCode(callSuper = true)
 
 public class FacturaVenta extends AuditoriaApp {
 
@@ -60,6 +60,7 @@ public class FacturaVenta extends AuditoriaApp {
     @OneToMany (mappedBy = "factura", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @Builder.Default
+    @EqualsAndHashCode.Exclude
     private List<FacturaVentaDetalle> detalles = new ArrayList<>();
 }
 
