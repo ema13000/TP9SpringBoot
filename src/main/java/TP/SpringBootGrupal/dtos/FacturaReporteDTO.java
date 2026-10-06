@@ -18,5 +18,6 @@ public class FacturaReporteDTO {
     private String puntoVentaDescripcion;
     private double importeTotal;
     private long cantidadItems;
+
 }
 
