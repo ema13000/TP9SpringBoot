@@ -26,13 +26,13 @@ public class FacturaVenta extends AuditoriaApp {
     //cliente, cond iva y moneda @ManyToOne
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "cliente_id", nullable = true)
     private Cliente cliente;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "condicion_iva_id", nullable = false)
     private CondicionIva condicionIva;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tipo_mondeda_id", nullable = false)
+    @JoinColumn(name = "tipo_moneda_id", nullable = false)
     private TipoMoneda tipoMoneda;
     @EqualsAndHashCode.Include
     private Long numero;

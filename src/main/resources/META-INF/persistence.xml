@@ -13,7 +13,7 @@
                       value="org.postgresql.Driver"/>
 
             <property name="jakarta.persistence.jdbc.url"
-                      value="jdbc:postgresql://localhost:5432/NOMBRE_BASE"/>
+                      value="jdbc:postgresql://localhost:5432/facturacion"/>
 
             <property name="jakarta.persistence.jdbc.user"
                       value="postgres"/>
