@@ -1,5 +1,6 @@
 package TP.SpringBootGrupal.dtos;
 
+import TP.SpringBootGrupal.entities.FacturaVenta;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,13 +12,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FacturaReporteDTO {
-    private Long numeroFactura;
-    private Date fechaEmision;
-    private String clienteDenominacion;
-    private String condicionIva;
-    private String puntoVentaDescripcion;
-    private double importeTotal;
-    private long cantidadItems;
-
+    Long numeroFactura;
+    Date fechaEmision;
+    String clienteDenominacion;
+    String condicionIva;
+    String puntoVentaDescripcion;
+    double importeTotal;
+    long cantidadItems;
 }
 

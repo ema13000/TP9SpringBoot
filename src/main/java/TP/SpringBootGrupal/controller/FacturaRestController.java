@@ -1,7 +1,7 @@
 package TP.SpringBootGrupal.controller;
 
 import TP.SpringBootGrupal.dtos.FacturaReporteDTO;
-import TP.SpringBootGrupal.service.FacturaService;
+import TP.SpringBootGrupal.service.FacturaServiceImpl;
 import com.lowagie.text.DocumentException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ContentDisposition;
@@ -21,10 +21,10 @@ import java.util.List;
 @RequestMapping("/api/facturas")
 public class FacturaRestController {
 
-    private final FacturaService facturaService;
+    private final FacturaServiceImpl facturaServiceImpl;
 
-    public FacturaRestController(FacturaService facturaService) {
-        this.facturaService = facturaService;
+    public FacturaRestController(FacturaServiceImpl facturaServiceImpl) {
+        this.facturaServiceImpl = facturaServiceImpl;
     }
 
     @GetMapping
@@ -43,7 +43,7 @@ public class FacturaRestController {
             @RequestParam(name = "montoMinimo", required = false)
             Double montoMinimo
     ) {
-        return facturaService.buscarFacturasFiltradas(
+        return facturaServiceImpl.buscarFacturasFiltradas(
                 fechaDesde, fechaHasta, estado, montoMinimo
         );
     }
@@ -66,11 +66,11 @@ public class FacturaRestController {
     ) throws DocumentException {
 
         List<FacturaReporteDTO> facturas =
-                facturaService.buscarFacturasFiltradas(
+                facturaServiceImpl.buscarFacturasFiltradas(
                         fechaDesde, fechaHasta, estado, montoMinimo
                 );
 
-        byte[] archivo = facturaService.generarPdf(facturas);
+        byte[] archivo = facturaServiceImpl.generarPdf(facturas);
 
         return descargar(
                 archivo,
@@ -97,11 +97,11 @@ public class FacturaRestController {
     ) throws IOException {
 
         List<FacturaReporteDTO> facturas =
-                facturaService.buscarFacturasFiltradas(
+                facturaServiceImpl.buscarFacturasFiltradas(
                         fechaDesde, fechaHasta, estado, montoMinimo
                 );
 
-        byte[] archivo = facturaService.generarExcel(facturas);
+        byte[] archivo = facturaServiceImpl.generarExcel(facturas);
 
         return descargar(
                 archivo,
