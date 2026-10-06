@@ -1,10 +1,9 @@
-package TP.SpringBootGrupal;
+package TP.SpringBootGrupal.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

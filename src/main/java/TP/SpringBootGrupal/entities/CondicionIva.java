@@ -1,4 +1,4 @@
-package TP.SpringBootGrupal;
+package TP.SpringBootGrupal.entities;
 import lombok.*;
 
 import jakarta.persistence.Column;

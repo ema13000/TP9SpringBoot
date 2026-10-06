@@ -1,9 +1,8 @@
-package TP.SpringBootGrupal;
+package TP.SpringBootGrupal.entities;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import jakarta.persistence.*;
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table (name= "tipo_moneda")

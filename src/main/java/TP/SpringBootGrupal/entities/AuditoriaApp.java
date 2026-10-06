@@ -1,10 +1,9 @@
-package TP.SpringBootGrupal;
+package TP.SpringBootGrupal.entities;
 
 import jakarta.persistence.*;
 import java.util.Date;
 import lombok.experimental.SuperBuilder;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter

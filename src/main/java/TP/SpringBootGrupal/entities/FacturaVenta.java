@@ -1,4 +1,4 @@
-package TP.SpringBootGrupal;
+package TP.SpringBootGrupal.entities;
 
 
 import lombok.*;
@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.experimental.SuperBuilder;
 
 
 @Entity

@@ -1,4 +1,4 @@
-package TP.SpringBootGrupal;
+package TP.SpringBootGrupal.entities;
 
 import lombok.*;
 
@@ -8,19 +8,19 @@ import jakarta.persistence.Table;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "lista_precio")
+@Table(name = "Marca")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@ToString
-@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class ListaPrecio extends AuditoriaApp {
-    @Column(nullable = false)
-    @EqualsAndHashCode.Include
-    private String codigo;
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = true)
+
+public class Marca extends AuditoriaApp{
     @Column(nullable = false)
     private String denominacion;
-
+    @EqualsAndHashCode.Include
+    @Column(nullable = false)
+    private Integer codigo;
 }

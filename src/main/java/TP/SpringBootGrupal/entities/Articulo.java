@@ -1,4 +1,4 @@
-package TP.SpringBootGrupal;
+package TP.SpringBootGrupal.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @Getter
 @Setter
-public class Articulo extends AuditoriaApp{
+public class Articulo extends AuditoriaApp {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Rubro rubro;
 
