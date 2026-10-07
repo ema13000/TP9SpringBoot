@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -170,76 +171,50 @@ public class FacturaServiceImpl implements FacturaService {
         return salida.toByteArray();
     }
 
-    public byte[] generarExcel(List<FacturaReporteDTO> facturas)
-            throws IOException {
+    public byte[] generarExcel(List<FacturaReporteDTO> facturas) {
+        StringBuilder contenido = new StringBuilder();
 
-        try (XSSFWorkbook libro = new XSSFWorkbook();
-             ByteArrayOutputStream salida = new ByteArrayOutputStream()) {
+        // Primera fila: nombres de las columnas.
+        contenido.append(String.join("\t", CABECERAS))
+                .append("\r\n");
 
-            Sheet hoja = libro.createSheet("Facturas");
+        SimpleDateFormat formatoFecha =
+                new SimpleDateFormat("yyyy-MM-dd");
 
-            // Estilo para las fechas.
-            CellStyle estiloFecha = libro.createCellStyle();
-            estiloFecha.setDataFormat(
-                    libro.createDataFormat().getFormat("yyyy-mm-dd")
-            );
+        // Una fila por factura.
+        for (FacturaReporteDTO factura : facturas) {
+            String fecha = factura.getFechaEmision() == null
+                    ? ""
+                    : formatoFecha.format(factura.getFechaEmision());
 
-            // Estilo para los importes.
-            CellStyle estiloImporte = libro.createCellStyle();
-            estiloImporte.setDataFormat(
-                    libro.createDataFormat().getFormat("#,##0.00")
-            );
-
-            Row cabecera = hoja.createRow(0);
-
-            for (int i = 0; i < CABECERAS.length; i++) {
-                cabecera.createCell(i).setCellValue(CABECERAS[i]);
-            }
-
-            int numeroFila = 1;
-
-            for (FacturaReporteDTO factura : facturas) {
-                Row fila = hoja.createRow(numeroFila++);
-
-                // Como texto para conservar todos los dígitos.
-                fila.createCell(0).setCellValue(
-                        texto(factura.getNumeroFactura())
-                );
-
-                fila.createCell(1);
-
-                if (factura.getFechaEmision() != null) {
-                    fila.getCell(1).setCellValue(factura.getFechaEmision());
-                    fila.getCell(1).setCellStyle(estiloFecha);
-                }
-
-                fila.createCell(2).setCellValue(
-                        texto(factura.getClienteDenominacion())
-                );
-
-                fila.createCell(3).setCellValue(
-                        texto(factura.getCondicionIva())
-                );
-
-                fila.createCell(4).setCellValue(
-                        texto(factura.getPuntoVentaDescripcion())
-                );
-
-                fila.createCell(5).setCellValue(factura.getImporteTotal());
-                fila.getCell(5).setCellStyle(estiloImporte);
-
-                fila.createCell(6).setCellValue(factura.getCantidadItems());
-            }
-
-            hoja.createFreezePane(0, 1);
-
-            for (int i = 0; i < CABECERAS.length; i++) {
-                hoja.autoSizeColumn(i);
-            }
-
-            libro.write(salida);
-            return salida.toByteArray();
+            contenido.append(textoCelda(factura.getNumeroFactura()))
+                    .append("\t")
+                    .append(fecha)
+                    .append("\t")
+                    .append(textoCelda(factura.getClienteDenominacion()))
+                    .append("\t")
+                    .append(textoCelda(factura.getCondicionIva()))
+                    .append("\t")
+                    .append(textoCelda(factura.getPuntoVentaDescripcion()))
+                    .append("\t")
+                    .append(String.format(
+                            Locale.forLanguageTag("es-AR"),
+                            "%.2f",
+                            factura.getImporteTotal()
+                    ))
+                    .append("\t")
+                    .append(factura.getCantidadItems())
+                    .append("\r\n");
         }
+
+        return contenido.toString().getBytes(StandardCharsets.UTF_8);
+    }
+
+    private static String textoCelda(Object valor) {
+        return texto(valor)
+                .replace('\t', ' ')
+                .replace('\r', ' ')
+                .replace('\n', ' ');
     }
 
     private static String texto(Object valor) {

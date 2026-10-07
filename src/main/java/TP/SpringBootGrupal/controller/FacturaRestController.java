@@ -105,11 +105,8 @@ public class FacturaRestController {
 
         return descargar(
                 archivo,
-                "reporte-facturas.xlsx",
-                MediaType.parseMediaType(
-                        "application/vnd.openxmlformats-officedocument"
-                                + ".spreadsheetml.sheet"
-                )
+                "reporte-facturas.txt",
+                MediaType.parseMediaType("text/plain;charset=UTF-8")
         );
     }
 
